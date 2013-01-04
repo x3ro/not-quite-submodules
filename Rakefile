@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "capistrano-bootstrap"
   gem.homepage = "http://github.com/x3ro/capistrano-bootstrap"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{This gem can be used to keep capistrano configuration synchronized between multiple projects.}
+  gem.description = %Q{This gem can be used to keep capistrano configuration synchronized between multiple projects. If you have several git repositories in which you are using the same or very similar capistrano configurations, this gem is for you.}
   gem.email = "lucas@x3ro.de"
   gem.authors = ["Lucas Jenss"]
   # dependencies defined in Gemfile
