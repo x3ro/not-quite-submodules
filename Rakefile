@@ -14,11 +14,11 @@ require 'rake'
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
-  gem.name = "capistrano-bootstrap"
-  gem.homepage = "http://github.com/x3ro/capistrano-bootstrap"
+  gem.name = "not-quite-submodules"
+  gem.homepage = "http://github.com/x3ro/not-quite-submodules"
   gem.license = "MIT"
-  gem.summary = %Q{This gem can be used to keep capistrano configuration synchronized between multiple projects.}
-  gem.description = %Q{This gem can be used to keep capistrano configuration synchronized between multiple projects. If you have several git repositories in which you are using the same or very similar capistrano configurations, this gem is for you.}
+  gem.summary = %Q{This gem can be used to automatically clone and update a git repository.}
+  gem.description = %Q{This gem can be used to automatically clone an update a git repository, relying on tags to see if a newer version of the repository is available.}
   gem.email = "lucas@x3ro.de"
   gem.authors = ["Lucas Jenss"]
   # dependencies defined in Gemfile

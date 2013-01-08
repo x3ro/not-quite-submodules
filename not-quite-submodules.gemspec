@@ -4,13 +4,13 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "capistrano-bootstrap"
+  s.name = "not-quite-submodules"
   s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Lucas Jenss"]
-  s.date = "2013-01-04"
-  s.description = "This gem can be used to keep capistrano configuration synchronized between multiple projects. If you have several git repositories in which you are using the same or very similar capistrano configurations, this gem is for you."
+  s.date = "2013-01-08"
+  s.description = "This gem can be used to automatically clone an update a git repository, relying on tags to see if a newer version of the repository is available."
   s.email = "lucas@x3ro.de"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -25,15 +25,15 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "capistrano-bootstrap.gemspec",
     "lib/capistrano-bootstrap.rb",
-    "spec/capistrano-bootstrap_spec.rb",
     "spec/spec_helper.rb"
   ]
-  s.homepage = "http://github.com/x3ro/capistrano-bootstrap"
+  s.homepage = "http://github.com/x3ro/not-quite-submodules"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.24"
-  s.summary = "This gem can be used to keep capistrano configuration synchronized between multiple projects."
+  s.summary = "This gem can be used to automatically clone and update a git repository."
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
