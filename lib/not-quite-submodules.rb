@@ -6,10 +6,11 @@ require 'digest/sha1'
 class NotQuiteSubmodules
   class << self
     # Update configuration repository every day
-    UPDATE_INTERVAL = 60 * 60 * 24
+    DEFAULT_UPDATE_INTERVAL = 60 * 60 * 24
 
     def initialize(repository, target_path, args = {})
       args[:target_path] = target_path
+      @update_interval = args[:update_interval] || DEFAULT_UPDATE_INTERVAL
 
       if args[:temp_path].nil?
         tmp_name = (Digest::SHA1.hexdigest repository)
@@ -106,7 +107,7 @@ private
     # touched (by the #update_repository method)
     def repository_needs_update?(temp_path)
       return true if !ENV["FORCE_UPDATE"].nil?
-      (Time.now - File.mtime(temp_path)) > UPDATE_INTERVAL
+      (Time.now - File.mtime(temp_path)) > @update_interval
     end
 
     # Pull the latest contents (including tags) for the repository
