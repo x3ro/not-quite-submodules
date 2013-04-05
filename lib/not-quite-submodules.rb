@@ -124,7 +124,12 @@ private
     end
 
     def tell(text)
-      puts "[NotQuiteSubmodules]: #{text}"
+      if @wrote_banner.nil?
+        puts "[NotQuiteSubmodules]"
+        @wrote_banner = true
+      end
+
+      puts "\t=> #{text}"
     end
 
     # Switches to the specified directory, executes the given block and then
