@@ -11,7 +11,6 @@ class NotQuiteSubmodules
     def initialize(repository, target_path, args = {})
       args[:target_path] = target_path
 
-      tmp_name =
       if args[:temp_path].nil?
         tmp_name = (Digest::SHA1.hexdigest repository)
         args[:temp_path] = "#{Dir.tmpdir}/#{tmp_name[0..8]}"
