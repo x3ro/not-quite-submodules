@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "not-quite-submodules"
-  s.version = "0.1.0"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Lucas Jenss"]
-  s.date = "2013-01-08"
+  s.date = "2013-04-05"
   s.description = "This gem can be used to automatically clone an update a git repository, relying on tags to see if a newer version of the repository is available."
   s.email = "lucas@x3ro.de"
   s.extra_rdoc_files = [
@@ -18,16 +18,14 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".document",
-    ".rspec",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
     "README.md",
     "Rakefile",
     "VERSION",
-    "capistrano-bootstrap.gemspec",
-    "lib/capistrano-bootstrap.rb",
-    "spec/spec_helper.rb"
+    "lib/not-quite-submodules.rb",
+    "not-quite-submodules.gemspec"
   ]
   s.homepage = "http://github.com/x3ro/not-quite-submodules"
   s.licenses = ["MIT"]
