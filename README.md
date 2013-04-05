@@ -14,13 +14,13 @@ There _must_ be at least one tag in the configuration repository, otherwise the 
 
 For your convenience, not-quite-submodules also generates a `.gitignore` file in the `config_dir` which ignores all content copied from the configuration repository.
 
-By default, capistrano-bootstrap will try to update the configuration repository once every 24 hours. You may force an update by setting the `FORCE_UPDATE` environment variable to a truthy value. From the command line, for example:
+By default, the gem will try to update the configuration repository once every 24 hours. You may force an update by setting the `FORCE_UPDATE` environment variable to a truthy value. From the command line, for example:
 
     FORCE_UPDATE=1 cap deploy
 
 
 
-## How to set up (for capistrano)?
+## How to set up for capistrano?
 
 You'll need a new git repository containing your configuration. Lets say you currently use the following directory structure in your projects:
 
