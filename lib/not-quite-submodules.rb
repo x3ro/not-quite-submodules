@@ -11,6 +11,7 @@ class NotQuiteSubmodules
     def initialize(repository, target_path, args = {})
       args[:target_path] = target_path
       @update_interval = args[:update_interval] || DEFAULT_UPDATE_INTERVAL
+      @force_update_to = args[:force_update_to]
 
       if args[:temp_path].nil?
         tmp_name = (Digest::SHA1.hexdigest repository)
@@ -32,7 +33,7 @@ class NotQuiteSubmodules
 private
 
     def configuration_needs_update?(temp_path, tags)
-      return true if !ENV["FORCE_UPDATE"].nil?
+      return true if !ENV["FORCE_UPDATE"].nil? || @force_update_to
       current_tag = get_current_tag(temp_path)
       return true if current_tag.nil?
       current_tag < tags.last
@@ -40,7 +41,7 @@ private
 
     # Checks out the latest tag and copies all files to the target path.
     def update_target_path(temp_path, target_path, tags)
-      update_to = tags.last
+      update_to = @force_update_to || tags.last
       tell("About to update target path to tag '#{update_to}'")
 
       in_dir_do(temp_path) do
