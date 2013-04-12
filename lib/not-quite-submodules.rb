@@ -29,7 +29,6 @@ class NotQuiteSubmodules
       end
     end
 
-private
 
     def configuration_needs_update?(temp_path, tags)
       return true if !ENV["FORCE_UPDATE"].nil?
