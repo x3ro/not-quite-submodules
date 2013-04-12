@@ -32,5 +32,12 @@ Reek::Rake::Task.new do |t|
   t.source_files = 'lib/**/*.rb'
 end
 
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
+end
+
 require 'yard'
 YARD::Rake::YardocTask.new

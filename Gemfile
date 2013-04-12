@@ -8,7 +8,8 @@ gem "versionomy", "~> 0.4.4"
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
-  gem "rspec", "~> 2.8.0"
+  gem "minitest", "~> 4.7.0"
+  gem "minitest-reporters", "~> 0.14.15"
   gem "yard", "~> 0.7"
   gem "rdoc", "~> 3.12"
   gem "bundler", "~> 1.2.0"
