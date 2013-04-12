@@ -2,6 +2,7 @@ require 'fileutils'
 require 'versionomy'
 require 'tmpdir'
 require 'digest/sha1'
+require 'open3'
 
 class NotQuiteSubmodules
   class << self
@@ -144,9 +145,11 @@ class NotQuiteSubmodules
     # Executes the given shell command in the current working directory, and throws an
     # exception in case the command failed (exit status != 0)
     def execute_command(command)
-      out = `#{command} 2>&1`
-      raise "There was an error executing '#{command}'. Output: \n #{out} \n" if $? != 0
-      out
+      stdin, stdout, stderr, thread = Open3.popen3(command)
+      raise "There was an error executing '#{command}'. Output: \n #{stderr.read} \n" if thread.value.to_i != 0
+      stdout.read
+    rescue Errno::ENOENT
+      raise "There was an error executing '#{command}'. Command not found!"
     end
   end
 end
