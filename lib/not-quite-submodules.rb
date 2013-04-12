@@ -45,7 +45,7 @@ private
       tell("About to update target path to tag '#{update_to}'")
 
       in_dir_do(temp_path) do
-        execute_command("git checkout #{update_to}")
+        execute_command("git reset --hard #{update_to}")
       end
       set_current_tag(temp_path, update_to)
       tell("Updated to '#{update_to}'")
@@ -116,7 +116,9 @@ private
       in_dir_do(temp_path) do
         tell "Updating local configuration repository at '#{temp_path}'"
         execute_command("git checkout master")
-        execute_command("git pull origin master --tags")
+        execute_command("git fetch")
+        execute_command("git fetch --tags")
+        execute_command("git reset --hard origin/master")
 
         head = execute_command("git rev-parse HEAD")[0,8]
         tell("Updated local configuration repository to #{head}")
