@@ -43,7 +43,7 @@ class NotQuiteSubmodules
       update_to = tags.last
       tell("About to update target path to tag '#{update_to}'")
 
-      in_dir_do(temp_path) do
+      in_dir(temp_path) do
         execute_command("git checkout #{update_to}")
       end
       set_current_tag(temp_path, update_to)
@@ -60,9 +60,9 @@ class NotQuiteSubmodules
     # Writes a .gitignore file which ignores all files copied from the repository.
     def write_gitignore(temp_path, target_path)
       tell("Updating #{target_path}/.gitignore")
-      files = in_dir_do(temp_path) { Dir.glob("*") }
+      files = in_dir(temp_path) { Dir.glob("*") }
       files.push(".gitignore")
-      in_dir_do(target_path) do
+      in_dir(target_path) do
         File.open(".gitignore", 'w+') { |f| f.write(files.join("\n")) }
       end
     end
@@ -87,7 +87,7 @@ class NotQuiteSubmodules
 
     # Returns an array of tags specified for the cloned configuration repository
     def get_repository_tags(temp_path)
-      in_dir_do(temp_path) do
+      in_dir(temp_path) do
         out = execute_command("git tag")
         raise "Repository in path #{temp_path} is not a valid Git repository" if $? != 0
 
@@ -112,7 +112,7 @@ class NotQuiteSubmodules
 
     # Pull the latest contents (including tags) for the repository
     def update_repository(temp_path)
-      in_dir_do(temp_path) do
+      in_dir(temp_path) do
         tell "Updating local configuration repository at '#{temp_path}'"
         execute_command("git checkout master")
         execute_command("git pull origin master --tags")
@@ -134,7 +134,7 @@ class NotQuiteSubmodules
 
     # Switches to the specified directory, executes the given block and then
     # switches the working directory back to where it was before.
-    def in_dir_do(temp_path, &block)
+    def in_dir(temp_path, &block)
       cwd = Dir.pwd
       Dir.chdir(temp_path)
       out = block.call
