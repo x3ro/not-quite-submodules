@@ -47,7 +47,7 @@ private
       in_dir_do(temp_path) do
         execute_command("git reset --hard #{update_to}")
       end
-      set_current_tag(temp_path, update_to)
+      set_current_tag(temp_path, update_to) if !@force_update_to
       tell("Updated to '#{update_to}'")
 
       tell("Copying updated files to '#{target_path}'")
