@@ -25,16 +25,17 @@ class NotQuiteSubmodules
       end
 
       tags = get_repository_tags(args[:temp_path]).map { |x| Versionomy.parse(x) }.sort
-      if configuration_needs_update?(args[:temp_path], tags)
+      if configuration_needs_update?(args[:target_path], tags)
         update_target_path(args[:temp_path], args[:target_path], tags)
       end
     end
 
 private
 
-    def configuration_needs_update?(temp_path, tags)
+    def configuration_needs_update?(target_path, tags)
       return true if !ENV["FORCE_UPDATE"].nil? || @force_update_to
-      current_tag = get_current_tag(temp_path)
+      current_tag = get_current_tag(target_path)
+      tell("Currently checked out tag is #{current_tag}, latest tag is #{tags.last}")
       return true if current_tag.nil?
       current_tag < tags.last
     end
@@ -47,7 +48,7 @@ private
       in_dir_do(temp_path) do
         execute_command("git reset --hard #{update_to}")
       end
-      set_current_tag(temp_path, update_to) if !@force_update_to
+      set_current_tag(target_path, update_to) if !@force_update_to
       tell("Updated to '#{update_to}'")
 
       tell("Copying updated files to '#{target_path}'")
@@ -63,6 +64,7 @@ private
       tell("Updating #{target_path}/.gitignore")
       files = in_dir_do(temp_path) { Dir.glob("*") }
       files.push(".gitignore")
+      files.push(".CURRENT_TAG")
       in_dir_do(target_path) do
         File.open(".gitignore", 'w+') { |f| f.write(files.join("\n")) }
       end
@@ -70,20 +72,20 @@ private
 
     # The file that contains the currently checked out tag (that is, the last tag
     # whose contents where copied to the configuration directory)
-    def tag_file(temp_path)
-      "#{temp_path}/.CURRENT_TAG"
+    def tag_file(target_path)
+      "#{target_path}/.CURRENT_TAG"
     end
 
-    def get_current_tag(temp_path)
-      dir = tag_file(temp_path)
+    def get_current_tag(target_path)
+      dir = tag_file(target_path)
       return nil if !File.exists?(dir)
       lines = File.read(dir).split("\n")
       return nil if lines.length < 1
       Versionomy.parse(lines.first)
     end
 
-    def set_current_tag(temp_path, tag)
-      File.open(tag_file(temp_path), 'w+') { |f| f.write(tag) }
+    def set_current_tag(target_path, tag)
+      File.open(tag_file(target_path), 'w+') { |f| f.write(tag) }
     end
 
     # Returns an array of tags specified for the cloned configuration repository
