@@ -135,6 +135,7 @@ private
     # OSX, since the repository became randomly invalid after standby/reboot). Therefore,
     # we need to check if the repository is still valid, and delete it if it is not.
     def check_temporary_repository(temp_path)
+      return if !File.directory? temp_path
       in_dir_do(temp_path) do
         `git status`
         if $? != 0
