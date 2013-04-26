@@ -18,6 +18,8 @@ class NotQuiteSubmodules
         args[:temp_path] = "#{Dir.tmpdir}/#{tmp_name[0..8]}"
       end
 
+      check_temporary_repository(args[:temp_path])
+
       if !File.directory? args[:temp_path]
         clone_repository(repository, args[:temp_path])
       elsif repository_needs_update?(args[:temp_path])
@@ -126,6 +128,20 @@ private
         tell("Updated local configuration repository to #{head}")
       end
       execute_command("touch #{temp_path}")
+    end
+
+    # Since we're using a system temp directory by default, parts of the repository
+    # may be deleted as part of OS cleanup (at least this seems to be the case with
+    # OSX, since the repository became randomly invalid after standby/reboot). Therefore,
+    # we need to check if the repository is still valid, and delete it if it is not.
+    def check_temporary_repository(temp_path)
+      in_dir_do(temp_path) do
+        `git status`
+        if $? != 0
+          tell "Repository at temporary path seems to be invalid. Deleting it."
+          FileUtils.rm_r temp_path
+        end
+      end
     end
 
     def tell(text)
