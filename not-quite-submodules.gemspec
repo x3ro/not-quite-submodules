@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "not-quite-submodules"
-  s.version = "0.4.0"
+  s.version = "0.4.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Lucas Jenss"]
-  s.date = "2013-04-18"
+  s.date = "2013-04-26"
   s.description = "This gem can be used to automatically clone an update a git repository, relying on tags to see if a newer version of the repository is available."
   s.email = "lucas@x3ro.de"
   s.extra_rdoc_files = [
